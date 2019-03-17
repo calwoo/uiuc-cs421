@@ -1,0 +1,79 @@
+(**************************************************************************
+ * You can add new test cases by adding new elements to the following lists
+ * Format is:
+ * TEST<X>ARG(<weight>, <function_name>, <arg1>, <arg2>, ..., <argX>)
+ *
+ * <X> is the number of argument that the function being tested takes.
+ **************************************************************************)
+
+let even_count_fr_stu l = List.fold_right Student.even_count_fr_step l Student.even_count_fr_base
+let even_count_fr_sol l = List.fold_right Solution.even_count_fr_step l Solution.even_count_fr_base
+
+let pair_sums_map_arg_stu l = List.map Student.pair_sums_map_arg l
+let pair_sums_map_arg_sol l = List.map Solution.pair_sums_map_arg l
+
+let even_count_tr_stu l = List.fold_left Student.even_count_tr_step Student.even_count_tr_start l
+let even_count_tr_sol l = List.fold_left Solution.even_count_tr_step Solution.even_count_tr_start l
+
+let count_element_stu l m = List.fold_left (Student.count_element_step m) Student.count_element_start l
+let count_element_sol l m = List.fold_left (Solution.count_element_step m) Solution.count_element_start l
+
+let exists_between_stu m n l = List.fold_left (Student.exists_between_step m n) Student.exists_between_start l
+let exists_between_sol m n l = List.fold_left (Solution.exists_between_step m n) Solution.exists_between_start l
+
+(* This list is for regular problems *)
+let rubric =
+[
+	(* Problem 1 *)
+	TEST1ARG(1, even_count_fr, [1;2;3]);
+
+	(* Problem 2 *)
+	TEST1ARG(1, pair_sums, [(1,6);(3,1);(3,2)]);
+
+	(* Problem 3 *)
+	TEST2ARG(1, interleave, [1;3;5], [2;4]);
+	TEST2ARG(0, interleave, [()], [()]);
+
+	(* Problem 4 *)
+	TEST1ARG(1, biggest, [4; 6; 5]);
+
+	(* Problem 5 *)
+	TEST1ARG(1, even_count_tr, [1;2;3]);
+
+	(* Problem 6 *)
+	TEST2ARG(1, count_element, [0;1;2;4;2;5;4;2], 2);
+	TEST2ARG(0, count_element, [()], ());
+
+	(* Problem 7 *)
+	TEST2ARG(1, sub_list, [1;1;2;1;1;4;1], [1;2;1;1;1]);
+	TEST2ARG(0, sub_list, [()], [()]);
+
+	(* Problem 8 *)
+	TEST2ARG(1, concat, " * ", ["3"; "6"; "2"]);
+
+	(* Problem 9 *)
+	TEST1ARG_TWOFUN(1, even_count_fr_sol, even_count_fr_stu, [1;2;3]);
+
+	(* Problem 10 *)
+	TEST1ARG_TWOFUN(1, pair_sums_map_arg_sol, pair_sums_map_arg_stu, [(1,6);(3,1);(3,2)]);
+
+	(* Problem 11 *)
+	TEST1ARG_TWOFUN(1, even_count_tr_sol, even_count_tr_stu, [1;2;3]);
+
+	(* Problem 12 *)
+	TEST2ARG_TWOFUN(1, count_element_sol, count_element_stu, [0;1;2;4;2;5;4;2], 2);
+	TEST2ARG_TWOFUN(0, count_element_sol, count_element_stu, [()], ());
+
+	(* Problem 13 *)
+	TEST3ARG(1, app_all_with, [(fun x y -> x*y); (fun x y -> x+y)], 10, [-1;0;1]);
+
+	(* Problem 14 *)
+	TEST3ARG_TWOFUN(1, exists_between_sol, exists_between_stu, 5, 10, [1; 20; 7; 9]);
+	TEST3ARG_TWOFUN(0, exists_between_sol, exists_between_stu, (), (), [()])
+
+]
+(* Note: the last entry should not be followed by a semicolon. *)
+
+let extra_rubric = [
+
+]
