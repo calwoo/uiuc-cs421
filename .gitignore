@@ -1,2 +1,4 @@
 *.cmo
 *.cmi
+util.o
+grader

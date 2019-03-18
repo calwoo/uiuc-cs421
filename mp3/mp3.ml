@@ -24,10 +24,45 @@ let pair_sums = LetRecInExp("pair_sums", "lst",
     AppExp (VarExp "pair_sums", import_list [(7,1);(4,2);(6,3)]));;
 
 (* Problem 3 *)
-let rec count_const_in_exp exp =  raise (Failure "Not implemented yet.")
+let rec count_const_in_exp exp =
+    match exp with
+    | VarExp _ -> 0
+    | ConstExp _ -> 1
+    | MonOpAppExp (_,e) -> count_const_in_exp e
+    | BinOpAppExp (_,e1,e2) -> 
+        count_const_in_exp e1 + count_const_in_exp e2
+    | IfExp (e1,e2,e3) ->
+        count_const_in_exp e1 + count_const_in_exp e2 +
+        count_const_in_exp e3
+    | AppExp (e1,e2) -> 
+        count_const_in_exp e1 + count_const_in_exp e2
+    | FunExp (_,e) -> count_const_in_exp e
+    | LetInExp (_,e1,e2) ->
+        count_const_in_exp e1 + count_const_in_exp e2
+    | LetRecInExp (_,_,e1,e2) ->
+        count_const_in_exp e1 + count_const_in_exp e2;;
 
 (* Problem 4 *)
-let rec freeVarsInExp exp = raise (Failure "Not implemented yet")
+let rec freeVarsInExp exp =
+    match exp with
+    | VarExp s -> [s]
+    | ConstExp _ -> []
+    | MonOpAppExp (_,e) -> freeVarsInExp e
+    | BinOpAppExp (_,e1,e2) -> 
+        (freeVarsInExp e1)@(freeVarsInExp e2)
+    | IfExp (e1,e2,e3) ->
+        (freeVarsInExp e1)@(freeVarsInExp e2)@(freeVarsInExp e3)
+    | AppExp (e1,e2) ->
+        (freeVarsInExp e1)@(freeVarsInExp e2)
+    | FunExp (s,e) -> 
+        List.filter (fun x -> x <> s) (freeVarsInExp e)
+    | LetInExp (s,e1,e2) ->
+        (freeVarsInExp e1)@(List.filter 
+            (fun x -> x <> s) (freeVarsInExp e2))
+    | LetRecInExp (f,s,e1,e2) ->
+        (List.filter (fun x -> (x <> f)&&(x <> s)) 
+            (freeVarsInExp e1))@(List.filter (fun x -> x <> f) (freeVarsInExp e2));;
+
 
 (* Problem 5 *)
 let rec cps_exp e k =  raise (Failure "Not implemented yet.")
