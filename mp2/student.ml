@@ -109,7 +109,13 @@ let rec even_countk l k =
 (********** EXTRA CREDIT **********)
 
 (* Extra Credit, Problem 16a *)
-let rec list_compose fs =  raise(Failure "Function not implemented yet.")
+let rec list_compose fs = 
+    match fs with
+    | [] -> 0
+    | g::gs -> g (list_compose gs);;
 
 (* Extra Credit, Problem 16b *)
-let rec list_composek fsk k = raise(Failure "Function not implemented yet.")
+let rec list_composek fsk k =
+    match fsk with
+    | [] -> k 0
+    | g::gs -> list_composek gs (fun x -> g x k);;
