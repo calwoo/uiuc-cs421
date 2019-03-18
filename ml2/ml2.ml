@@ -84,10 +84,10 @@ let rec concat s list =
 
 (* Problem 9 *)
 let even_count_fr_base = 0
-let even_count_fr_step x rec_val = fun x -> fun acc -> if x mod 2 = 0 then 1+acc else acc
+let even_count_fr_step = fun x -> fun acc -> if x mod 2 = 0 then 1+acc else acc
 
 (* Problem 10 *)
-let pair_sums_map_arg p = fun (x,y) -> x + y
+let pair_sums_map_arg = fun (x,y) -> x + y
 
 (* Problem 11 *)
 let even_count_tr_start = 0
